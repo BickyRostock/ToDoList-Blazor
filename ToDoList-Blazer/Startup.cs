@@ -45,7 +45,6 @@ namespace ToDoList_Blazer
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddSingleton<WeatherForecastService>();
             services.AddScoped<IToDoItemService, ToDoItemService>(); //TODO - when adding multi user access this can't be a singleton
         }
 

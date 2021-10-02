@@ -13,76 +13,83 @@ namespace ToDoList_Blazer.Shared
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
+#line 1 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
+#line 2 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
+#line 3 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
+#line 4 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
+#line 5 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
+#line 6 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
+#line 7 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
+#line 8 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
+#line 9 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
 using ToDoList_Blazer;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
+#line 10 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\_Imports.razor"
 using ToDoList_Blazer.Shared;
 
 #line default
 #line hidden
 #nullable disable
-    public partial class SurveyPrompt : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 1 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\Shared\ToDoList.razor"
+using ToDoList_Blazer.Data;
+
+#line default
+#line hidden
+#nullable disable
+    public partial class ToDoList : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -90,15 +97,19 @@ using ToDoList_Blazer.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 12 "C:\Users\rickyb\Source\Repos\ToDoList-Blazor\ToDoList-Blazer\Shared\SurveyPrompt.razor"
+#line 37 "C:\Users\rickyb\source\repos\ToDoList-Blazor\ToDoList-Blazer\Shared\ToDoList.razor"
        
-    // Demonstrates how a parent component can supply parameters
-    [Parameter]
-    public string Title { get; set; }
+    private ToDoItem[] m_toDoItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        m_toDoItems = m_toDoItemService.GetAll();
+    }
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IToDoItemService m_toDoItemService { get; set; }
     }
 }
 #pragma warning restore 1591

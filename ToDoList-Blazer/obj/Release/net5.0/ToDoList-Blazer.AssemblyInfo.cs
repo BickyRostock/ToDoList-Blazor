@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-ToDoList_Blazer-7B607C66-DE7E-488E-BC61-66FF66539F74")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ToDoList-Blazer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
