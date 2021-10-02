@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/ToDoList-Blazer/bin/Debug/net5.0
+/ToDoList-Blazer/appsettings.Development.json
+/ToDoList-Blazer/appsettings.json
+/ToDoList-Blazer-IntegrationTests/bin/Debug/net5.0
+/ToDoList-Blazer-IntegrationTests/obj

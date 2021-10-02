@@ -1,0 +1,44 @@
+﻿@using ToDoList_Blazer.Data
+@inject IToDoItemService m_toDoItemService;
+
+<h3>ToDoList</h3>
+
+@if (m_toDoItems is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Done</th>
+                <th>What</th>
+                <th>Who</th>
+                <th>When</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in m_toDoItems)
+            {
+                <tr>
+                    <td>@item.Done</td>
+                    <td>@item.What</td>
+                    <td>@item.When.ToShortDateString()</td>
+                    <td>@item.Who</td>
+                    <td>@item.Notes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private ToDoItem[] m_toDoItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        m_toDoItems = m_toDoItemService.GetAll();
+    }
+}
