@@ -45,7 +45,7 @@ namespace ToDoList_Blazer
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddScoped<IToDoItemService, ToDoItemService>(); //TODO - when adding multi user access this can't be a singleton
+            services.AddScoped<IToDoItemService, ToDoItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
