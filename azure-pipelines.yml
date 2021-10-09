@@ -14,7 +14,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration) /ToDoList-Blazor/ToDoList-Blazer.csproj
+- script: dotnet build --configuration $(buildConfiguration) ToDoList-Blazor/ToDoList-Blazer.csproj
   displayName: 'dotnet build $(buildConfiguration)'
 - task: DotNetCoreCLI@2
   displayName: 'Publishing App...'
