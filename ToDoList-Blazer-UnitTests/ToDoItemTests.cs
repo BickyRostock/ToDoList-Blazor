@@ -8,7 +8,7 @@ namespace ToDoList_Blazer_UnitTests
         [Test]
         public void ExampleTestForPipline()
         {
-            Assert.That(true, Is.True);
+            Assert.That(false, Is.True);
         }
     }
 }
