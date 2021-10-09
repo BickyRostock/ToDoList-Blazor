@@ -8,8 +8,7 @@ trigger:
 
 #using self hosted pool at the moment
 #agent is deployed on personal machine
-pool:
-  vmImage: MyPool
+pool: MyPool
 
 variables:
   buildConfiguration: 'Release'
