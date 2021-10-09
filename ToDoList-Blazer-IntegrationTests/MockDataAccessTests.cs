@@ -7,6 +7,7 @@ using ToDoList_Blazer.Data;
 
 namespace ToDoList_Blazer_IntegrationTests
 {
+    [TestFixture]
     public class MockDataAccessTests
     {
         private static readonly ToDoItem[] m_toDoList = new ToDoItem[]
