@@ -14,8 +14,20 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration) ToDoList-Blazer/ToDoList-Blazer.csproj
-  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: build
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: RunTests
+  inputs:
+    command: test
+    projects: '**/*UnitTests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code Coverage"'
+
 - task: DotNetCoreCLI@2
   displayName: 'Publishing App...'
   inputs:
