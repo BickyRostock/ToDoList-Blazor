@@ -1,31 +1,27 @@
-﻿@using ToDoList_Blazer.Data
-@using ToDoList_Blazer.Shared.ViewModel
-@inject IToDoItemService m_toDoItemService;
+﻿@inherits ToDoListStateHandler
 
-<h3>ToDoList</h3>
-
-@* TODO - Need form validation *@
-@*<EditForm Model="@m_viewModel" OnValidSubmit="@testc">
+<EditForm Model="@this" OnValidSubmit="OnNewToDoItemSubmitted">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <InputText id="whatInput" title="What" type="text" @bind-Value="m_viewModel.What" />
-    <input title="when" type="date" @bind="@m_viewModel.When" />
-    <input title="Who" type="text" @bind="m_viewModel.Who" />
-    <input title="Notes" type="text" @bind="m_viewModel.Notes" />
-    <button title="Submit" type="submit">Submit</button>
-</EditForm>*@
-
-<EditForm Model="@m_viewModel" OnValidSubmit="@testc">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <InputText id="whatInput" title="What" type="text" @bind-Value="m_viewModel.What" />
-    @*<InputDate id="whenInput" TValue="DateTime" title="when" type="date" @bind-value="m_viewModel.When" />*@
-    <InputText id="whoInput" title="Who" type="text" @bind-value="m_viewModel.Who" />
-    @*<InputText id="notesInput" title="Notes" type="text" @bind-value="m_viewModel.Notes" />
-        <button title="Submit" type="submit">Submit</button>*@
+    <label>
+        What?
+        <InputText id="whatInput" class="form-control" title="What" type="text" @bind-Value="What" />
+    </label>
+    <label>When?
+        <InputDate id="inputDate" class="form-control" title="When" TValue="DateTime" @bind-Value="When" />
+    </label>
+    <label>
+        Who?
+        <InputText id="whoInput"  class="form-control" title="Who" type="text" @bind-Value="Who" />
+    </label>
+    <label>
+        Notes
+        <InputText id="notesInput"  class="form-control" title="Notes" type="text" @bind-Value="Notes" />
+    </label>
+    <button id="createItemButton" class="btn btn-success" title="Submit" type="submit">Create!</button>
 </EditForm> 
 
-@if (m_viewModel is null)
+@if (ToDoList is null)
 {
     <p><em>Loading...</em></p>
 }
@@ -39,10 +35,11 @@ else
                 <th>Who</th>
                 <th>When</th>
                 <th>Notes</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in m_viewModel.ToDoList)
+            @foreach (var item in ToDoList)
             {
                 <tr>
                     <td>
@@ -52,23 +49,9 @@ else
                     <td>@item.When.ToShortDateString()</td>
                     <td>@item.Who</td>
                     <td>@item.Notes</td>
+                    <td><button id="deleteButton" class="btn btn-danger" @onclick="() => DeleteItemHandler(item)">Delete</button></td>
                 </tr>
             }
         </tbody>
     </table>
-}
-
-@code {
-    private ToDoListViewModel m_viewModel;
-
-    protected override async Task OnInitializedAsync()
-    {
-        m_viewModel = new ToDoListViewModel(m_toDoItemService);
-    }
-
-    private void testc()
-    {
-        m_viewModel.OnNewToDoItemSubmitted();
-    }
-
 }
