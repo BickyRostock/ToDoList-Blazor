@@ -1,9 +1,31 @@
 ﻿@using ToDoList_Blazer.Data
+@using ToDoList_Blazer.Shared.ViewModel
 @inject IToDoItemService m_toDoItemService;
 
 <h3>ToDoList</h3>
 
-@if (m_toDoItems is null)
+@* TODO - Need form validation *@
+@*<EditForm Model="@m_viewModel" OnValidSubmit="@testc">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <InputText id="whatInput" title="What" type="text" @bind-Value="m_viewModel.What" />
+    <input title="when" type="date" @bind="@m_viewModel.When" />
+    <input title="Who" type="text" @bind="m_viewModel.Who" />
+    <input title="Notes" type="text" @bind="m_viewModel.Notes" />
+    <button title="Submit" type="submit">Submit</button>
+</EditForm>*@
+
+<EditForm Model="@m_viewModel" OnValidSubmit="@testc">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <InputText id="whatInput" title="What" type="text" @bind-Value="m_viewModel.What" />
+    @*<InputDate id="whenInput" TValue="DateTime" title="when" type="date" @bind-value="m_viewModel.When" />*@
+    <InputText id="whoInput" title="Who" type="text" @bind-value="m_viewModel.Who" />
+    @*<InputText id="notesInput" title="Notes" type="text" @bind-value="m_viewModel.Notes" />
+        <button title="Submit" type="submit">Submit</button>*@
+</EditForm> 
+
+@if (m_viewModel is null)
 {
     <p><em>Loading...</em></p>
 }
@@ -20,10 +42,12 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in m_toDoItems)
+            @foreach (var item in m_viewModel.ToDoList)
             {
                 <tr>
-                    <td>@item.Done</td>
+                    <td>
+                        <input type="checkbox" @bind="@item.Done" />
+                    </td>
                     <td>@item.What</td>
                     <td>@item.When.ToShortDateString()</td>
                     <td>@item.Who</td>
@@ -35,10 +59,16 @@ else
 }
 
 @code {
-    private ToDoItem[] m_toDoItems;
+    private ToDoListViewModel m_viewModel;
 
     protected override async Task OnInitializedAsync()
     {
-        m_toDoItems = m_toDoItemService.GetAll();
+        m_viewModel = new ToDoListViewModel(m_toDoItemService);
     }
+
+    private void testc()
+    {
+        m_viewModel.OnNewToDoItemSubmitted();
+    }
+
 }

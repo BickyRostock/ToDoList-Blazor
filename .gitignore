@@ -8,3 +8,7 @@
 /ToDoList-Blazer/appsettings.json
 /ToDoList-Blazer-IntegrationTests/bin/Debug/net5.0
 /ToDoList-Blazer-IntegrationTests/obj
+/ToDoList-Blazer-UnitTests/bin/Debug/net5.0
+/ToDoList-Blazer-UnitTests/obj/Debug/net5.0
+/ToDoList-Blazer-UnitTests/obj/Release/net5.0
+/ToDoList-Blazer-UnitTests/obj

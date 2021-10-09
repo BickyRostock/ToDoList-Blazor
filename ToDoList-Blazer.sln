@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList-Blazer", "ToDoList-Blazer\ToDoList-Blazer.csproj", "{B4FC3B1E-0E59-4A64-BF80-B08517FCCD6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoList-Blazer", "ToDoList-Blazer\ToDoList-Blazer.csproj", "{B4FC3B1E-0E59-4A64-BF80-B08517FCCD6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList-Blazer-IntegrationTests", "ToDoList-Blazer-IntegrationTests\ToDoList-Blazer-IntegrationTests.csproj", "{E84C2D8B-8799-4E01-9164-9F875FA5321A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoList-Blazer-IntegrationTests", "ToDoList-Blazer-IntegrationTests\ToDoList-Blazer-IntegrationTests.csproj", "{E84C2D8B-8799-4E01-9164-9F875FA5321A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList-Blazer-UnitTests", "ToDoList-Blazer-UnitTests\ToDoList-Blazer-UnitTests.csproj", "{1BD3EF06-A3BE-4322-BB2A-A43B206CBFF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E84C2D8B-8799-4E01-9164-9F875FA5321A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E84C2D8B-8799-4E01-9164-9F875FA5321A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E84C2D8B-8799-4E01-9164-9F875FA5321A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BD3EF06-A3BE-4322-BB2A-A43B206CBFF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD3EF06-A3BE-4322-BB2A-A43B206CBFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD3EF06-A3BE-4322-BB2A-A43B206CBFF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD3EF06-A3BE-4322-BB2A-A43B206CBFF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
