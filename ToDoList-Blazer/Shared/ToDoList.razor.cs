@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDoList_Blazer.Data;
-using ToDoList_Blazer.Shared.ViewModel;
 
 namespace ToDoList_Blazer.Shared
 {
