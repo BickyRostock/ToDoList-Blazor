@@ -6,8 +6,10 @@
 trigger:
 - master
 
+#using self hosted pool at the moment
+#agent is deployed on personal machine
 pool:
-  vmImage: windows-latest
+  vmImage: MyPool
 
 variables:
   buildConfiguration: 'Release'
