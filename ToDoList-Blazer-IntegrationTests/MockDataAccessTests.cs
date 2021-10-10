@@ -18,7 +18,9 @@ namespace ToDoList_Blazer_IntegrationTests
         [OneTimeSetUp]
         public void SetUp()
         {
-            string integrationConnection = "Server=(localdb)\\mssqllocaldb;Database=aspnet-ToDoList-Blazer-Test;Trusted_Connection=True;MultipleActiveResultSets=true";
+            
+            //string integrationConnection = "Server=(localdb)\\mssqllocaldb;Database=aspnet-ToDoList-Blazer-Test;Trusted_Connection=True;MultipleActiveResultSets=true";
+            string integrationConnection = "Server=(localdb)\\mssqllocaldb;Database=aspnet-ToDoList-Blazer-7B607C66-DE7E-488E-BC61-66FF66539F74;Trusted_Connection=True;MultipleActiveResultSets=true";
 
             DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
             optionsBuilder.UseSqlServer(integrationConnection);
