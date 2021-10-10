@@ -48,6 +48,7 @@ namespace ToDoList_Blazer
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+
             }
             else
             {
