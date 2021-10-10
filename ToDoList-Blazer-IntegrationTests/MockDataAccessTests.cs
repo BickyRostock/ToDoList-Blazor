@@ -4,22 +4,16 @@ using NUnit.Framework;
 using System;
 using System.Configuration;
 using ToDoList_Blazer.Data;
+using ToDoList_Blazer.Data.DataSeeds.ToDoItem;
 
 namespace ToDoList_Blazer_IntegrationTests
 {
     [TestFixture]
     public class MockDataAccessTests
     {
-        private static readonly ToDoItem[] m_toDoList = new ToDoItem[]
-        {
-            new ToDoItem { Done = false, What = "Eat food", When = new DateTime(2021, 1, 1, 12, 0, 0), Who = "Me", Notes = "Omlette" },
-            new ToDoItem { Done = false, What = "Eat food", When = new DateTime(2021, 1, 1, 12, 0, 0), Who = "Me", Notes = "Omlette" },
-            new ToDoItem { Done = false, What = "Eat food", When = new DateTime(2021, 1, 1, 12, 0, 0), Who = "Me", Notes = "Omlette" },
-            new ToDoItem { Done = false, What = "Eat food", When = new DateTime(2021, 1, 1, 12, 0, 0), Who = "Me", Notes = "Omlette" },
-            new ToDoItem { Done = false, What = "Eat food", When = new DateTime(2021, 1, 1, 12, 0, 0), Who = "Me", Notes = "Omlette" }
-        };
-
         public IToDoItemService ToDoListService { get; private set; }
+
+        private ToDoItem[] m_toDoItemsSeed;
 
         [OneTimeSetUp]
         public void SetUp()
@@ -32,9 +26,16 @@ namespace ToDoList_Blazer_IntegrationTests
             ToDoDBContext context = new ToDoDBContext(optionsBuilder.Options);
             ToDoListService = new ToDoItemService(context);
 
-            int result = ToDoListService.CreateRangeAsync(m_toDoList).Result;
+            int result = ToDoItemSeed.InitialiseAsync(ToDoListService).Result;
 
-            if(result != m_toDoList.Length) throw new Exception("Failed to set up test data for integration tests.");
+            if (result != ToDoItemSeed.ToDoListSeed.Length)
+            {
+                throw new Exception("Failed to set up test seed data for integration tests.");
+            }
+            else
+            {
+                m_toDoItemsSeed = ToDoItemSeed.ToDoListSeed;
+            }
         }
 
         [OneTimeTearDown]
@@ -49,7 +50,7 @@ namespace ToDoList_Blazer_IntegrationTests
                 deletionResult += ToDoListService.DeleteAsync(item).Result;
             }
 
-            if(deletionResult != m_toDoList.Length) throw new Exception("Failed to tear down test data for integration tests.");
+            if(deletionResult != m_toDoItemsSeed.Length) throw new Exception("Failed to tear down test data for integration tests.");
         }
 
         [Test]
