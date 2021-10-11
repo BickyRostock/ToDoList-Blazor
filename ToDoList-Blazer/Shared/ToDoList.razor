@@ -27,31 +27,36 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Done</th>
-                <th>What</th>
-                <th>Who</th>
-                <th>When</th>
-                <th>Notes</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in ToDoList)
-            {
+    <div class="to-do-list-container">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        <input type="checkbox" @bind="@item.Done" />
-                    </td>
-                    <td>@item.What</td>
-                    <td>@item.When.ToShortDateString()</td>
-                    <td>@item.Who</td>
-                    <td>@item.Notes</td>
-                    <td><button id="deleteButton" class="btn btn-danger" @onclick="() => DeleteItemHandler(item)">Delete</button></td>
+                    <th>Done</th>
+                    <th>What</th>
+                    <th>Who</th>
+                    <th>When</th>
+                    <th>Notes</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in ToDoList)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" @bind="@item.Done" />
+                        </td>
+                        <td>@item.What</td>
+                        <td>@item.When.ToShortDateString()</td>
+                        <td>@item.Who</td>
+                        <td>@item.Notes</td>
+                        <td>
+                            <a class="bi bi-x-square-fill"></a>
+                            <button id="deleteButton" class="btn btn-danger" @onclick="() => DeleteItemHandler(item)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }

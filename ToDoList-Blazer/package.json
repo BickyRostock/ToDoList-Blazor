@@ -1,0 +1,25 @@
+{
+  "name": "todolist-blazer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BickyRostock/ToDoList-Blazor.git"
+  },
+  "keywords": [
+    "ToDo"
+  ],
+  "author": "Ricky Bostock",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BickyRostock/ToDoList-Blazor/issues"
+  },
+  "homepage": "https://github.com/BickyRostock/ToDoList-Blazor#readme",
+  "dependencies": {
+    "bootstrap-icons": "^1.5.0"
+  }
+}

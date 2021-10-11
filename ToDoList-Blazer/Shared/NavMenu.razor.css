@@ -9,7 +9,9 @@
 
 .navbar-brand {
     font-size: 1.1rem;
-    font-family: 'Gill Sans'
+    font-family: 'Gill Sans';
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .oi {
