@@ -25,12 +25,35 @@ namespace ToDoList_Blazer.Shared
         public string Notes { get; set; }
 
         [Inject]
-        private IToDoItemService m_toDoItemService { get; set; }
+        public IToDoItemService ToDoItemService { get; set; }
 
+        private DateTime? m_dateTimeNow;
+        public DateTime? DateTimeNow
+        {
+            get
+            {
+                if (m_dateTimeNow is null)
+                {
+                    return DateTime.Now;
+                }
+                else
+                {
+                    return m_dateTimeNow;
+                }
+            }
+            set
+            {
+                m_dateTimeNow = value;
+            }
+        }
+
+        private bool m_isInitalisedByApplication = false;
 
         protected override Task OnInitializedAsync()
         {
-            ToDoList = m_toDoItemService.GetAll();
+            m_isInitalisedByApplication = true;
+
+            ToDoList = ToDoItemService.GetAll();
 
             return base.OnInitializedAsync();
         }
@@ -46,20 +69,29 @@ namespace ToDoList_Blazer.Shared
                 Notes = Notes,
             };
 
-            await m_toDoItemService.CreateAsync(newItem);
+            await ToDoItemService.CreateAsync(newItem);
 
             ToDoList = ToDoList.Append(newItem).ToArray();
-
-            StateHasChanged();
+            
+            if(m_isInitalisedByApplication) StateHasChanged();
         }
 
         public async void DeleteItemHandler(ToDoItem itemToDelete)
         {
-            await m_toDoItemService.DeleteAsync(itemToDelete);
+            await ToDoItemService.DeleteAsync(itemToDelete);
 
             ToDoList = ToDoList.Where(item => item.Id != itemToDelete.Id).ToArray();
 
-            StateHasChanged();
+            if (m_isInitalisedByApplication) StateHasChanged();
+        }
+
+        public async void UpdateItemHandler(ToDoItem itemToUpdate)
+        {
+            itemToUpdate.Done = !itemToUpdate.Done;
+
+            itemToUpdate.DateDone = DateTimeNow.Value;
+            
+            await ToDoItemService.UpdateAsync(itemToUpdate);
         }
     }
 }

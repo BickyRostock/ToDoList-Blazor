@@ -44,15 +44,14 @@ else
                 {
                     <tr>
                         <td>
-                            <input type="checkbox" @bind="@item.Done" />
+                            <input type="checkbox" @onclick="() => UpdateItemHandler(item)" @bind="@item.Done" />
                         </td>
                         <td>@item.What</td>
                         <td>@item.When.ToShortDateString()</td>
                         <td>@item.Who</td>
                         <td>@item.Notes</td>
                         <td>
-                            <i class="bi-alarm"></i>
-                            <button id="deleteButton" class="btn btn-danger" @onclick="() => DeleteItemHandler(item)">Delete</button>
+                            <a @onclick="() => DeleteItemHandler(item)" style="cursor: pointer"><i class="bi bi-x-square-fill text-danger"></i></a>
                         </td>
                     </tr>
                 }
