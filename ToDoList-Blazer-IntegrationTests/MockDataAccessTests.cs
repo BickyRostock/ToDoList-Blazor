@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using System;
-using System.Configuration;
 using ToDoList_Blazer.Data;
 using ToDoList_Blazer.Data.DataSeeds.ToDoItem;
 
@@ -18,10 +16,10 @@ namespace ToDoList_Blazer_IntegrationTests
         [OneTimeSetUp]
         public void SetUp()
         {
-            DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
+            DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseInMemoryDatabase("tests");
 
-            ToDoDBContext context = new ToDoDBContext(optionsBuilder.Options);
+            ApplicationDbContext context = new ApplicationDbContext(optionsBuilder.Options);
             ToDoListService = new ToDoItemService(context);
 
             int result = ToDoItemSeed.InitialiseAsync(ToDoListService).Result;

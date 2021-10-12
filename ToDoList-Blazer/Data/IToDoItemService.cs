@@ -4,7 +4,7 @@ namespace ToDoList_Blazer.Data
 {
     public interface IToDoItemService
     {
-        ToDoDBContext Context { get; }
+        ApplicationDbContext Context { get; }
         Task<int> CreateAsync(ToDoItem item);
         Task<int> CreateRangeAsync(ToDoItem[] items);
         Task<int> DeleteAsync(ToDoItem item);

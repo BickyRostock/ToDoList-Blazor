@@ -6,9 +6,9 @@ namespace ToDoList_Blazer.Data
 {
     public class ToDoItemService : IToDoItemService
     {
-        public ToDoDBContext Context { get; }
+        public ApplicationDbContext Context { get; }
 
-        public ToDoItemService(ToDoDBContext context)
+        public ToDoItemService(ApplicationDbContext context)
         {
             Context = context;
         }
