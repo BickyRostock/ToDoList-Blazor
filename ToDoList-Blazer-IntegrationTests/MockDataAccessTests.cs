@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
+using System.Linq;
 using ToDoList_Blazer.Data;
+using ToDoList_Blazer.Data.DataSeeds.ApplicationUser;
 using ToDoList_Blazer.Data.DataSeeds.ToDoItem;
 
 namespace ToDoList_Blazer_IntegrationTests
@@ -11,6 +13,7 @@ namespace ToDoList_Blazer_IntegrationTests
     {
         public IToDoItemService ToDoListService { get; private set; }
 
+        private ApplicationUser[] m_applicationUserSeed;
         private ToDoItem[] m_toDoItemsSeed;
 
         [OneTimeSetUp]
@@ -22,14 +25,17 @@ namespace ToDoList_Blazer_IntegrationTests
             ApplicationDbContext context = new ApplicationDbContext(optionsBuilder.Options);
             ToDoListService = new ToDoItemService(context);
 
-            int result = ToDoItemSeed.InitialiseAsync(ToDoListService).Result;
+            int applicationUserResult = ApplicationUserSeed.InitialiseAsync(context).Result;
+            int toDoItemResult = ToDoItemSeed.InitialiseAsync(ToDoListService).Result;
 
-            if (result != ToDoItemSeed.ToDoListSeed.Length)
+            if (applicationUserResult != ApplicationUserSeed.ApplicationUsersSeed.Length 
+                || toDoItemResult != ToDoItemSeed.ToDoListSeed.Length)
             {
                 throw new Exception("Failed to set up test seed data for integration tests.");
             }
             else
             {
+                m_applicationUserSeed = ApplicationUserSeed.ApplicationUsersSeed;
                 m_toDoItemsSeed = ToDoItemSeed.ToDoListSeed;
             }
         }
@@ -37,40 +43,50 @@ namespace ToDoList_Blazer_IntegrationTests
         [OneTimeTearDown]
         public void TearDown()
         {
-            ToDoItem[] items = ToDoListService.GetAll();
-
-            int deletionResult = 0;
-
-            foreach (var item in items)
+            foreach(ApplicationUser user in m_applicationUserSeed)
             {
-                deletionResult += ToDoListService.DeleteAsync(item).Result;
-            }
+                ToDoItem[] items = ToDoListService.GetAllAsync(user).Result;
+                int deletionResult = 0;
+                foreach (var item in items)
+                {
+                    deletionResult += ToDoListService.DeleteAsync(item).Result;
 
-            if(deletionResult != m_toDoItemsSeed.Length) throw new Exception("Failed to tear down test data for integration tests.");
+                    Assert.That(deletionResult, Is.GreaterThan(0));
+                }
+            }
         }
 
         [Test]
         public void GetData()
         {
-            ToDoItem[] items = ToDoListService.GetAll();
-            Assert.That(items.Length, Is.EqualTo(5));
+            foreach(ApplicationUser user in m_applicationUserSeed)
+            {
+                int expectedResult = m_toDoItemsSeed.Where(i => i.ApplicationUserId == user.Id).Count();
+
+                ToDoItem[] items = ToDoListService.GetAllAsync(user).Result;
+
+                Assert.That(items.Length, Is.EqualTo(expectedResult));
+            }
         }
 
         [Test]
         public void UpdateData()
         {
-            ToDoItem[] items = ToDoListService.GetAll();
+            foreach(ApplicationUser user in m_applicationUserSeed)
+            {
+                ToDoItem[] items = ToDoListService.GetAllAsync(user).Result;
 
-            ToDoItem item = items[0];
-            item.Done = true;
+                ToDoItem item = items[0];
+                item.Done = true;
 
-            int result = ToDoListService.UpdateAsync(item).Result;
+                int result = ToDoListService.UpdateAsync(item).Result;
 
-            Assert.That(result, Is.EqualTo(1));
+                Assert.That(result, Is.EqualTo(1));
 
-            ToDoItem updatedItem = ToDoListService.Get(item.Id).Result;
+                ToDoItem updatedItem = ToDoListService.GetAsync(user, item.Id).Result;
 
-            Assert.That(updatedItem.Done, Is.True);
+                Assert.That(updatedItem.Done, Is.True);
+            }
         }
     }
 }

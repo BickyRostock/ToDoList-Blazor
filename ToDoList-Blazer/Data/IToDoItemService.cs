@@ -8,8 +8,8 @@ namespace ToDoList_Blazer.Data
         Task<int> CreateAsync(ToDoItem item);
         Task<int> CreateRangeAsync(ToDoItem[] items);
         Task<int> DeleteAsync(ToDoItem item);
-        Task<ToDoItem> Get(int Id);
-        ToDoItem[] GetAll();
+        Task<ToDoItem> GetAsync(ApplicationUser user, int Id);
+        Task<ToDoItem[]> GetAllAsync(ApplicationUser user);
         Task<int> UpdateAsync(ToDoItem item);
     }
 }

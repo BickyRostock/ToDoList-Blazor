@@ -10,8 +10,8 @@ using ToDoList_Blazer.Data;
 namespace ToDoList_Blazer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211012172959_ApplicationUserWithToDoList")]
-    partial class ApplicationUserWithToDoList
+    [Migration("20211013204656_ApplicationUserToDoItem")]
+    partial class ApplicationUserToDoItem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -229,9 +229,10 @@ namespace ToDoList_Blazer.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ApplicationUserId")
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("DateDone")
+                    b.Property<DateTime?>("DateDone")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Done")

@@ -2,6 +2,14 @@
 
 <h1>What do we have to do today?!</h1>
 
-Below is your to-do list...
+<AuthorizeView >
+    <Authorized>
+        Below is your to-do list...
 
-<ToDoList />
+        <ToDoList />
+    </Authorized>
+    <NotAuthorized>
+        Please log in to see your to-do list...
+    </NotAuthorized>
+</AuthorizeView>
+    

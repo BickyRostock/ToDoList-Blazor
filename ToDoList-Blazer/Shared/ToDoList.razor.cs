@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -27,6 +29,14 @@ namespace ToDoList_Blazer.Shared
         [Inject]
         public IToDoItemService ToDoItemService { get; set; }
 
+        [CascadingParameter]
+        public Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+        [Inject]
+        public UserManager<ApplicationUser> ApplicationUserManager { get; set; }
+
+        public ApplicationUser LoggedInUser { get; set; }
+
         private DateTime? m_dateTimeNow;
         public DateTime? DateTimeNow
         {
@@ -47,26 +57,31 @@ namespace ToDoList_Blazer.Shared
             }
         }
 
+        
+
         private bool m_isInitalisedByApplication = false;
 
-        protected override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             m_isInitalisedByApplication = true;
 
-            ToDoList = ToDoItemService.GetAll();
+            AuthenticationState authState = AuthenticationStateTask.Result;
+            LoggedInUser = ApplicationUserManager.GetUserAsync(authState.User).Result;
 
-            return base.OnInitializedAsync();
+            ToDoList = await ToDoItemService.GetAllAsync(LoggedInUser);
+
+            await base.OnInitializedAsync();
         }
 
         public async void OnNewToDoItemSubmitted()
         {
-            //TODO - need on successful message to user
             ToDoItem newItem = new ToDoItem
             {
                 What = What,
                 When = When,
                 Who = Who,
                 Notes = Notes,
+                ApplicationUserId = LoggedInUser.Id
             };
 
             await ToDoItemService.CreateAsync(newItem);

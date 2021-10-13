@@ -15,6 +15,8 @@ namespace ToDoList_Blazer_UnitTests
             Mock<IToDoItemService> service = new Mock<IToDoItemService>(MockBehavior.Strict);
             service.Setup(service => service.CreateAsync(It.IsAny<ToDoItem>())).ReturnsAsync(1);
 
+            ApplicationUser loggedInUser = new ApplicationUser { Id = "1" };
+
             ToDoListStateHandler razorComponentHandler = new ToDoListStateHandler
             {
                 ToDoItemService = service.Object,
@@ -23,6 +25,7 @@ namespace ToDoList_Blazer_UnitTests
                 Who = "Me",
                 When = new System.DateTime(2021, 1, 1),
                 Notes = "Some pie",
+                LoggedInUser = loggedInUser,
             };
 
             razorComponentHandler.OnNewToDoItemSubmitted();
@@ -67,7 +70,7 @@ namespace ToDoList_Blazer_UnitTests
             razorComponentHandler.UpdateItemHandler(itemToUpdate);
 
             Assert.That(razorComponentHandler.ToDoList[0].Done, Is.True);
-            Assert.That(DateTime.Compare(razorComponentHandler.ToDoList[0].DateDone, new DateTime(2021, 1, 1)), Is.EqualTo(0));
+            Assert.That(DateTime.Compare(razorComponentHandler.ToDoList[0].DateDone.Value, new DateTime(2021, 1, 1)), Is.EqualTo(0));
         }
     }
 }

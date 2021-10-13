@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,8 +14,6 @@ namespace ToDoList_Blazer.Data
             Context = context;
         }
 
-        //TODO - we could take save changes out of each call, because if they are tracked by the framework, we could limit transactions on the DB and give the app more control
-
         public async Task<int> CreateRangeAsync(ToDoItem[] items)
         {
             await Context.AddRangeAsync(items);
@@ -23,18 +22,26 @@ namespace ToDoList_Blazer.Data
 
         public async Task<int> CreateAsync(ToDoItem item)
         {
-            await Context.AddAsync(item); //TODO - this might be a problem if await here when we save it might not tracked the entity yet.
-            return await Context.SaveChangesAsync(); //TODO - Add failed call back
+            await Context.AddAsync(item);
+            return await Context.SaveChangesAsync();
         }
 
-        public ToDoItem[] GetAll()
+        public async Task<ToDoItem[]> GetAllAsync(ApplicationUser user)
         {
-            return Context.ToDoItem.ToArray(); //TODO - how to make this async
+            ApplicationUser theUser = await Context.Users
+                .Where(u => u.Id == user.Id)
+                .Include(u => u.ToDoList).FirstOrDefaultAsync();
+
+            return theUser.ToDoList.ToArray();
         }
 
-        public async Task<ToDoItem> Get(int Id)
+        public async Task<ToDoItem> GetAsync(ApplicationUser user, int Id)
         {
-            return await Context.FindAsync<ToDoItem>(Id);
+            ApplicationUser theUser = await Context.Users
+                .Where(u => u.Id == user.Id)
+                .Include(u => u.ToDoList).FirstOrDefaultAsync();
+
+            return theUser.ToDoList.FirstOrDefault(item => item.Id == Id);
         }
 
         public async Task<int> UpdateAsync(ToDoItem item)

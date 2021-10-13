@@ -4,6 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-ToDoList_Blazer-7B607C66-DE7E-488E-BC61-66FF66539F74</UserSecretsId>
     <RootNamespace>ToDoList_Blazer</RootNamespace>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

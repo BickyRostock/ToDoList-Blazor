@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ToDoList_Blazer.Data.Migrations
 {
-    public partial class ApplicationUserWithToDoList : Migration
+    public partial class ApplicationUserToDoItem : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,8 +18,8 @@ namespace ToDoList_Blazer.Data.Migrations
                     Who = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     When = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    DateDone = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    DateDone = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {

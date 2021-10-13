@@ -16,6 +16,9 @@ namespace ToDoList_Blazer.Data
         public DateTime When { get; set; }
         [MaxLength(300)]
         public string Notes { get; set; }
-        public DateTime DateDone { get; set; }
+        public DateTime? DateDone { get; set; }
+        [Required]
+        [MaxLength(450)]
+        public string ApplicationUserId { get; set; }
     }
 }
